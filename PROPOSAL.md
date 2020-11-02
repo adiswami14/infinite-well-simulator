@@ -1,1 +1,12 @@
-Put your final project proposal here.
+# Final Project Proposal
+
+For this final project, I am focusing on using **Quantum Mechanics** along with Cinder to provide an interactive user experience for some of the quantum phenomena that takes place in everyday life that most are not aware of. At least initially, I plan to work on the infinite well phenomena. As for the reason why, in my senior year of high school, I took Modern Physics. I was really fascinated by the microscopic level of quantum physics, which can be applied to the large-scale universe.
+
+#### The infinite well phenomena
+Basically, this says given an infinite potential well (i.e. a box where a particle can move freely), we can predict the *expected values* of the particle's x-value and it's momentum p, given the particle's energy state. Using this information, we can also calculate the uncertainty around this particle's position and momentum (I will also implement this if I have the time for it). As for how I want to go about doing this, I think I will keep the particle as an electron, but also allow the user to play around with values such as the particle's mass, and the length of the infinite well. Using these variables, I can calculate all that I have stated above. Some of the challenges I foresee is that I will have to do integration of functions. For that, I may have to use an external library, or if I can find some open-source code for that, I can use that (while giving due credit, of course). 
+
+#### Timeline
+By week 1, I will try to implement an adjustable potential well on a graph, and get the cartesian system working. By week 2, I will attempt to implement the bulk of the project, by calculating the expected values of an electron according to its energy state. The last week will be all accessory. I will attempt to add a particle of which one can modify the mass parameter. I will also try to implement an interactive slider to move the electron up and down energy states. However, I am not too sure of this timeline right now, and I will have to figure it out as I go forward with this project. If time permits, I will definitely attempt to go for at least one of the stretch goals.
+
+#### Stretch Goals
+I already talked about implementing Heisenberg's uncertainty principle. Another thing I could implement is Finite-well Bound States of an electron, namely the energy states going into the finite well, inside the finite well itself, and out of the finite well. 
