@@ -1,4 +1,10 @@
-//
-// Created by Adithya Swaminathan on 11/14/20.
-//
+#include <visualizer/final_project_app.h>
 
+using finalproject::visualizer::FinalProjectApp;
+
+void prepareSettings(FinalProjectApp::Settings* settings) {
+    settings->setResizable(false);
+}
+
+// This line is a macro that expands into an "int main()" function.
+CINDER_APP(FinalProjectApp, ci::app::RendererGl, prepareSettings);
