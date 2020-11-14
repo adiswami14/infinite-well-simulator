@@ -5,6 +5,7 @@
 #include "cinder/app/App.h"
 #include "cinder/app/RendererGl.h"
 #include "cinder/gl/gl.h"
+#include "static_frame.h"
 
 namespace finalproject {
 
@@ -33,6 +34,7 @@ private:
     Particle particle_;
     bool edit_particle_frame_;
     size_t particle_frame_x_;
+    StaticFrame top_frame_;
 };
 
 } //namespace visualizer

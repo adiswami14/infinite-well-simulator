@@ -6,10 +6,12 @@ namespace visualizer {
 
 using glm::vec2;
 
-FinalProjectApp::FinalProjectApp() : well_(Well(100.0, 250.0)){
+FinalProjectApp::FinalProjectApp() : well_(Well(100.0, 250.0)),
+top_frame_(vec2(0,0), vec2(kWindowSize, 200), ci::Color("green")){
     ci::app::setWindowSize((int) kWindowSize, (int) kWindowSize);
     edit_particle_frame_ = false;
     particle_frame_x_ = kWindowSize;
+
 }
 
 void FinalProjectApp::update() {
@@ -33,14 +35,18 @@ void FinalProjectApp::draw() {
     ci::gl::drawLine(vec2(well_.GetEndPos(), kWindowSize), vec2(well_.GetEndPos(), kHeight));
     ci::gl::drawLine(vec2(well_.GetEndPos(), kHeight), vec2(kWindowSize, kHeight));
 
+    top_frame_.Draw();
+
     if(edit_particle_frame_) {
         ci::Rectf rect(vec2(particle_frame_x_, 0), vec2(kWindowSize, kWindowSize));
+        ci::gl::color(ci::Color("green"));
         ci::gl::drawStrokedRect(rect);
         ci::gl::color(ci::Color("black"));
         ci::gl::drawSolidRect(rect);
     } else {
         if(particle_frame_x_ < kWindowSize) {
             ci::Rectf rect(vec2(particle_frame_x_, 0), vec2(kWindowSize, kWindowSize));
+            ci::gl::color(ci::Color("green"));
             ci::gl::drawStrokedRect(rect);
             ci::gl::color(ci::Color("black"));
             ci::gl::drawSolidRect(rect);
