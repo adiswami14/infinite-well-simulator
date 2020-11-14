@@ -8,10 +8,20 @@ using glm::vec2;
 
 FinalProjectApp::FinalProjectApp() : well_(Well(100.0, 250.0)){
     ci::app::setWindowSize((int) kWindowSize, (int) kWindowSize);
+    edit_particle_frame_ = false;
+    particle_frame_x_ = kWindowSize;
 }
 
 void FinalProjectApp::update() {
-
+    if(edit_particle_frame_){
+        if (particle_frame_x_ >= kWindowSize - 300) {
+            particle_frame_x_ -= 10;
+        }
+    } else {
+        if (particle_frame_x_ <= kWindowSize) {
+            particle_frame_x_ += 10;
+        }
+    }
 }
 
 void FinalProjectApp::draw() {
@@ -22,10 +32,29 @@ void FinalProjectApp::draw() {
     ci::gl::drawLine(vec2(well_.GetStartPos(), kHeight), vec2(well_.GetStartPos(), kWindowSize));
     ci::gl::drawLine(vec2(well_.GetEndPos(), kWindowSize), vec2(well_.GetEndPos(), kHeight));
     ci::gl::drawLine(vec2(well_.GetEndPos(), kHeight), vec2(kWindowSize, kHeight));
+
+    if(edit_particle_frame_) {
+        ci::Rectf rect(vec2(particle_frame_x_, 0), vec2(kWindowSize, kWindowSize));
+        ci::gl::drawStrokedRect(rect);
+        ci::gl::color(ci::Color("black"));
+        ci::gl::drawSolidRect(rect);
+    } else {
+        if(particle_frame_x_ < kWindowSize) {
+            ci::Rectf rect(vec2(particle_frame_x_, 0), vec2(kWindowSize, kWindowSize));
+            ci::gl::drawStrokedRect(rect);
+            ci::gl::color(ci::Color("black"));
+            ci::gl::drawSolidRect(rect);
+        }
+    }
 }
 
 void FinalProjectApp::keyDown(ci::app::KeyEvent event) {
-
+    if(event.getCode() == ci::app::KeyEvent::KEY_DOWN) {
+        edit_particle_frame_ = true;
+    }
+    if(event.getCode() == ci::app::KeyEvent::KEY_UP) {
+        edit_particle_frame_ = false;
+    }
 }
 
 void FinalProjectApp::mouseDown(ci::app::MouseEvent event) {

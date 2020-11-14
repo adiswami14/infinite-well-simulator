@@ -1,6 +1,7 @@
 #pragma once
 
 #include <core/well.h>
+#include <core/particle.h>
 #include "cinder/app/App.h"
 #include "cinder/app/RendererGl.h"
 #include "cinder/gl/gl.h"
@@ -29,6 +30,9 @@ public:
     void mouseDrag(ci::app::MouseEvent event) override;
 private:
     Well well_;
+    Particle particle_;
+    bool edit_particle_frame_;
+    size_t particle_frame_x_;
 };
 
 } //namespace visualizer
