@@ -5,10 +5,12 @@ namespace finalproject{
 namespace visualizer {
 
 using glm::vec2;
+using namespace cinder::app;
+
 
 FinalProjectApp::FinalProjectApp() : well_(Well(100.0, 250.0)),
-top_frame_(vec2(0,0), vec2(kWindowSize, 200), ci::Color("green")),
-side_panel_frame_(300, 700, kWindowSize){
+top_frame_(vec2(0,0), vec2(kWindowSize, 200), ci::Color("green"), ci::Color("black")),
+side_panel_frame_(300, 700, kWindowSize, ci::Color("green"), ci::Color("black")){
     ci::app::setWindowSize((int) kWindowSize, (int) kWindowSize);
 }
 
@@ -27,14 +29,58 @@ void FinalProjectApp::draw() {
 
     top_frame_.Draw();
     side_panel_frame_.Draw();
+
+
+    if(side_panel_frame_.IsOpen()){
+        ci::gl::drawStringCentered("Infinite Well", vec2(730, 250), ci::Color("white"), ci::Font("Arial", 30));
+        ci::gl::drawStringCentered("Well Length", vec2(730, 300), ci::Color("white"), ci::Font("Arial", 20));
+
+        ci::gl::drawStringCentered(std::to_string(well_.GetLength()), vec2(730, 320), ci::Color("white"), ci::Font("Arial", 15));
+        ci::gl::drawStringCentered("Particle in Well", vec2(730, 380), ci::Color("white"), ci::Font("Arial", 30));
+
+        double particle_color;
+        if(particle_.energy_state_ <= 25) {
+            particle_color = 255-(particle_.energy_state_*10);
+        } else particle_color = 3.0;
+        ci::gl::color(ci::Color((float)particle_color/255+((float)(particle_.mass_*10)/255), (float)particle_color/255, (float)particle_color/255+((float)(particle_.mass_*10)/255)));
+        ci::gl::drawSolidCircle(vec2(730, 450), 20);
+
+        ci::gl::drawStringCentered("Particle Energy State", vec2(730, 500), ci::Color("white"), ci::Font("Arial", 20));
+        ci::gl::drawStringCentered(std::to_string(particle_.energy_state_), vec2(730, 530), ci::Color("white"), ci::Font("Arial", 15));
+
+        ci::gl::drawStringCentered("Particle Mass", vec2(730, 570), ci::Color("white"), ci::Font("Arial", 20));
+        ci::gl::drawStringCentered(std::to_string(particle_.mass_), vec2(730, 600), ci::Color("white"), ci::Font("Arial", 15));
+    }
 }
 
 void FinalProjectApp::keyDown(ci::app::KeyEvent event) {
-    if(event.getCode() == ci::app::KeyEvent::KEY_DOWN) {
-        side_panel_frame_.SetActive(true);
-    }
-    if(event.getCode() == ci::app::KeyEvent::KEY_UP) {
-        side_panel_frame_.SetActive(false);
+    switch (event.getCode()) {
+        case ci::app::KeyEvent::KEY_DOWN:
+            side_panel_frame_.SetActive(true);
+            break;
+        case ci::app::KeyEvent::KEY_UP:
+            side_panel_frame_.SetActive(false);
+            break;
+        case ci::app::KeyEvent::KEY_RIGHT:
+            if(side_panel_frame_.IsOpen()) {
+                particle_.energy_state_++;
+            }
+            break;
+        case ci::app::KeyEvent::KEY_LEFT:
+            if(particle_.energy_state_>1 && side_panel_frame_.IsOpen()) {
+                particle_.energy_state_--;
+            }
+            break;
+        case ci::app::KeyEvent::KEY_PERIOD:
+            if(side_panel_frame_.IsOpen()) {
+                particle_.mass_ += 0.5;
+            }
+            break;
+        case ci::app::KeyEvent::KEY_COMMA:
+            if(particle_.mass_>0.5 && side_panel_frame_.IsOpen()) {
+                particle_.mass_ -= 0.5;
+            }
+            break;
     }
 }
 
