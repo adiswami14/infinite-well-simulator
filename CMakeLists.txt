@@ -54,7 +54,8 @@ list(APPEND CORE_SOURCE_FILES src/core/well.cc src/core/particle.cc)
 list(APPEND SOURCE_FILES    ${CORE_SOURCE_FILES}
         src/visualizer/final_project_app.cc
         src/visualizer/frame.cc
-        src/visualizer/static_frame.cc)
+        src/visualizer/static_frame.cc
+        src/visualizer/dynamic_frame.cc)
 
 list(APPEND TEST_FILES)
 

@@ -7,23 +7,13 @@ namespace visualizer {
 using glm::vec2;
 
 FinalProjectApp::FinalProjectApp() : well_(Well(100.0, 250.0)),
-top_frame_(vec2(0,0), vec2(kWindowSize, 200), ci::Color("green")){
+top_frame_(vec2(0,0), vec2(kWindowSize, 200), ci::Color("green")),
+side_panel_frame_(300, 700, kWindowSize){
     ci::app::setWindowSize((int) kWindowSize, (int) kWindowSize);
-    edit_particle_frame_ = false;
-    particle_frame_x_ = kWindowSize;
-
 }
 
 void FinalProjectApp::update() {
-    if(edit_particle_frame_){
-        if (particle_frame_x_ >= kWindowSize - 300) {
-            particle_frame_x_ -= 10;
-        }
-    } else {
-        if (particle_frame_x_ <= kWindowSize) {
-            particle_frame_x_ += 10;
-        }
-    }
+    side_panel_frame_.Update();
 }
 
 void FinalProjectApp::draw() {
@@ -36,30 +26,15 @@ void FinalProjectApp::draw() {
     ci::gl::drawLine(vec2(well_.GetEndPos(), kHeight), vec2(kWindowSize, kHeight));
 
     top_frame_.Draw();
-
-    if(edit_particle_frame_) {
-        ci::Rectf rect(vec2(particle_frame_x_, 0), vec2(kWindowSize, kWindowSize));
-        ci::gl::color(ci::Color("green"));
-        ci::gl::drawStrokedRect(rect);
-        ci::gl::color(ci::Color("black"));
-        ci::gl::drawSolidRect(rect);
-    } else {
-        if(particle_frame_x_ < kWindowSize) {
-            ci::Rectf rect(vec2(particle_frame_x_, 0), vec2(kWindowSize, kWindowSize));
-            ci::gl::color(ci::Color("green"));
-            ci::gl::drawStrokedRect(rect);
-            ci::gl::color(ci::Color("black"));
-            ci::gl::drawSolidRect(rect);
-        }
-    }
+    side_panel_frame_.Draw();
 }
 
 void FinalProjectApp::keyDown(ci::app::KeyEvent event) {
     if(event.getCode() == ci::app::KeyEvent::KEY_DOWN) {
-        edit_particle_frame_ = true;
+        side_panel_frame_.SetActive(true);
     }
     if(event.getCode() == ci::app::KeyEvent::KEY_UP) {
-        edit_particle_frame_ = false;
+        side_panel_frame_.SetActive(false);
     }
 }
 

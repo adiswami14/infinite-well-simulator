@@ -6,6 +6,7 @@
 #include "cinder/app/RendererGl.h"
 #include "cinder/gl/gl.h"
 #include "static_frame.h"
+#include "dynamic_frame.h"
 
 namespace finalproject {
 
@@ -32,9 +33,8 @@ public:
 private:
     Well well_;
     Particle particle_;
-    bool edit_particle_frame_;
-    size_t particle_frame_x_;
     StaticFrame top_frame_;
+    DynamicFrame side_panel_frame_;
 };
 
 } //namespace visualizer
