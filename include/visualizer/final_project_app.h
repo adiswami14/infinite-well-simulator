@@ -17,8 +17,8 @@ namespace visualizer {
 */
 class FinalProjectApp : public ci::app::App {
 public:
-    const double kWindowSize = 900;//size of the Cinder window
-    const double kHeight = 500;
+    const double kWindowSize = 900; //size of the Cinder window
+    const double kHeight = 500; //y-value at which the infinite well is drawn
 
     /**
      * Default constructor for this class
@@ -32,10 +32,15 @@ public:
     void mouseDrag(ci::app::MouseEvent event) override;
 
 private:
-    Well well_;
-    Particle particle_;
-    StaticFrame top_frame_;
-    DynamicFrame side_panel_frame_;
+    /**
+     * Draws info on the well length, and info of the particle in the well (energy state, mass)
+     */
+    void DrawSimulationInfo() const;
+
+    Well well_; //instance of Well in the simulation
+    Particle particle_; //the Particle in the Well
+    StaticFrame top_frame_; //The static frame at the top of the screen, used for the graph of wavefunction
+    DynamicFrame side_panel_frame_; //The dynamic side panel for displaying simulation information
 };
 
 } //namespace visualizer

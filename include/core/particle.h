@@ -3,12 +3,18 @@
 
 namespace finalproject {
 
+/**
+ * A struct that contains the mass and energy state of the particle
+ */
 struct Particle {
 public:
+    /**
+     * Default constructor for Particle class
+     */
     Particle();
-    Particle(double mass, size_t energy_state);
-    double mass_;
-    size_t energy_state_;
+
+    double mass_; //mass of the particle
+    size_t energy_state_; //energy state of the particle
 };
 
 }

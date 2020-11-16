@@ -32,24 +32,7 @@ void FinalProjectApp::draw() {
 
 
     if(side_panel_frame_.IsOpen()){
-        ci::gl::drawStringCentered("Infinite Well", vec2(730, 250), ci::Color("white"), ci::Font("Arial", 30));
-        ci::gl::drawStringCentered("Well Length", vec2(730, 300), ci::Color("white"), ci::Font("Arial", 20));
-
-        ci::gl::drawStringCentered(std::to_string(well_.GetLength()), vec2(730, 320), ci::Color("white"), ci::Font("Arial", 15));
-        ci::gl::drawStringCentered("Particle in Well", vec2(730, 380), ci::Color("white"), ci::Font("Arial", 30));
-
-        double particle_color;
-        if(particle_.energy_state_ <= 25) {
-            particle_color = 255-(particle_.energy_state_*10);
-        } else particle_color = 3.0;
-        ci::gl::color(ci::Color((float)particle_color/255+((float)(particle_.mass_*10)/255), (float)particle_color/255, (float)particle_color/255+((float)(particle_.mass_*10)/255)));
-        ci::gl::drawSolidCircle(vec2(730, 450), 20);
-
-        ci::gl::drawStringCentered("Particle Energy State", vec2(730, 500), ci::Color("white"), ci::Font("Arial", 20));
-        ci::gl::drawStringCentered(std::to_string(particle_.energy_state_), vec2(730, 530), ci::Color("white"), ci::Font("Arial", 15));
-
-        ci::gl::drawStringCentered("Particle Mass", vec2(730, 570), ci::Color("white"), ci::Font("Arial", 20));
-        ci::gl::drawStringCentered(std::to_string(particle_.mass_), vec2(730, 600), ci::Color("white"), ci::Font("Arial", 15));
+        DrawSimulationInfo();
     }
 }
 
@@ -95,6 +78,27 @@ void FinalProjectApp::mouseDrag(ci::app::MouseEvent event) {
     else if(abs(event.getX()-well_.GetEndPos()) <= 5) {
         well_.SetEndPos(event.getX());
     }
+}
+
+void FinalProjectApp::DrawSimulationInfo() const {
+    ci::gl::drawStringCentered("Infinite Well", vec2(730, 250), ci::Color("white"), ci::Font("Arial", 30));
+    ci::gl::drawStringCentered("Well Length", vec2(730, 300), ci::Color("white"), ci::Font("Arial", 20));
+
+    ci::gl::drawStringCentered(std::to_string(well_.GetLength()), vec2(730, 320), ci::Color("white"), ci::Font("Arial", 15));
+    ci::gl::drawStringCentered("Particle in Well", vec2(730, 380), ci::Color("white"), ci::Font("Arial", 30));
+
+    double particle_color;
+    if(particle_.energy_state_ <= 25) {
+        particle_color = 255-(particle_.energy_state_*10);
+    } else particle_color = 3.0;
+    ci::gl::color(ci::Color((float)particle_color/255+((float)(particle_.mass_*10)/255), (float)particle_color/255, (float)particle_color/255+((float)(particle_.mass_*10)/255)));
+    ci::gl::drawSolidCircle(vec2(730, 450), 20);
+
+    ci::gl::drawStringCentered("Particle Energy State", vec2(730, 500), ci::Color("white"), ci::Font("Arial", 20));
+    ci::gl::drawStringCentered(std::to_string(particle_.energy_state_), vec2(730, 530), ci::Color("white"), ci::Font("Arial", 15));
+
+    ci::gl::drawStringCentered("Particle Mass", vec2(730, 570), ci::Color("white"), ci::Font("Arial", 20));
+    ci::gl::drawStringCentered(std::to_string(particle_.mass_), vec2(730, 600), ci::Color("white"), ci::Font("Arial", 15));
 }
 }
 
