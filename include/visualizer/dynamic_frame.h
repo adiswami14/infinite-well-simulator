@@ -12,7 +12,7 @@ using glm::vec2;
 /**
  * A frame that moves over the course of the simulation
  */
-class DynamicFrame: Frame {
+class DynamicFrame: Frame { //will later provide configuration to get a dynamicframe from either side
 public:
     /**
      * Constructor for DynamicFrame class
