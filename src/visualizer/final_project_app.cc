@@ -31,6 +31,7 @@ void FinalProjectApp::draw() {
 
     ci::gl::color(ci::Color("yellow"));
     ci::gl::drawLine(vec2(value_finder_.FindExpectedXValue(well_), 200), vec2(value_finder_.FindExpectedXValue(well_), kWindowSize));
+
     DrawXSpreadRectangle();
 
     top_frame_.Draw();
@@ -42,6 +43,19 @@ void FinalProjectApp::draw() {
     }
     if(expected_values_frame_.IsOpen()) {
         DrawExpectedValues();
+    }
+
+    ci::gl::color(ci::Color("white"));
+    float x1, x2, y1, y2;
+    float unit = well_.GetLength()/150;
+    for (double i=0;i<well_.GetLength();i+=unit) {
+        x1 = (float)i;
+        x2 = ((float)i + unit);
+        y1 = -100*pow(sin((particle_.energy_state_*x1/(well_.GetLength())) * M_PI),2);
+        y2 = -100*pow(sin((particle_.energy_state_*x2/(well_.GetLength())) * M_PI),2);
+        x1/=unit;
+        x2/=unit;
+        ci::gl::drawLine(vec2(x1+300, y1 + 150), vec2(x2+300, y2 + 150));
     }
 }
 
