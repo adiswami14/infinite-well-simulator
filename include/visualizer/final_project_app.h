@@ -40,6 +40,8 @@ private:
 
     void DrawExpectedValues() const;
 
+    void DrawXSpreadRectangle() const;
+
     Well well_; //instance of Well in the simulation
     Particle particle_; //the Particle in the Well
     StaticFrame top_frame_; //The static frame at the top of the screen, used for the graph of wavefunction

@@ -31,6 +31,7 @@ void FinalProjectApp::draw() {
 
     ci::gl::color(ci::Color("yellow"));
     ci::gl::drawLine(vec2(value_finder_.FindExpectedXValue(well_), 200), vec2(value_finder_.FindExpectedXValue(well_), kWindowSize));
+    DrawXSpreadRectangle();
 
     top_frame_.Draw();
     simulation_info_frame_.Draw();
@@ -117,10 +118,25 @@ void FinalProjectApp::DrawSimulationInfo() const {
 
 void FinalProjectApp::DrawExpectedValues() const {
     ci::gl::drawStringCentered("<x> (Average X-Position): ", vec2(100, 250), ci::Color("white"), ci::Font("Arial", 15));
-    ci::gl::drawStringCentered(std::to_string(value_finder_.FindExpectedXValue(well_))+" m", vec2(100, 300), ci::Color("white"), ci::Font("Arial", 15));
+    ci::gl::drawStringCentered(std::to_string(value_finder_.FindExpectedXValue(well_)), vec2(100, 300), ci::Color("white"), ci::Font("Arial", 15));
 
     ci::gl::drawStringCentered("<E> (Average Energy): ", vec2(100, 400), ci::Color("white"), ci::Font("Arial", 15));
-    ci::gl::drawStringCentered(std::to_string(value_finder_.FindExpectedEnergyValue(particle_, well_))+"*10^-34 J", vec2(100, 450), ci::Color("white"), ci::Font("Arial", 15));
+    ci::gl::drawStringCentered(std::to_string(value_finder_.FindExpectedEnergyValue(particle_, well_))+"*10^-68 J", vec2(100, 450), ci::Color("white"), ci::Font("Arial", 15));
+
+    ci::gl::drawStringCentered("Δp (Probability Spread): ", vec2(100, 550), ci::Color("white"), ci::Font("Arial", 15));
+    ci::gl::drawStringCentered(std::to_string(value_finder_.FindProbabilitySpread(particle_, well_))+"*10^-34 kg * m/s", vec2(100, 600), ci::Color("white"), ci::Font("Arial", 15));
+
+    ci::gl::drawStringCentered("Δx (X-Position Spread): ", vec2(100, 700), ci::Color("white"), ci::Font("Arial", 15));
+    ci::gl::drawStringCentered(std::to_string(value_finder_.FindXValueSpread(particle_, well_))+" m", vec2(100, 750), ci::Color("white"), ci::Font("Arial", 15));
+}
+
+void FinalProjectApp::DrawXSpreadRectangle() const {
+    ci::gl::enableAlphaBlending();
+    double x_spread = value_finder_.FindXValueSpread(particle_, well_);
+    double average_x = value_finder_.FindExpectedXValue(well_);
+    ci::Rectf rect(vec2(average_x-(x_spread/2),200), vec2(average_x+(x_spread/2),kWindowSize));
+    ci::gl::color(ci::ColorA( 0.3f, 0.1f, 0.6f, 0.5f));
+    ci::gl::drawSolidRect(rect);
 }
 }
 
