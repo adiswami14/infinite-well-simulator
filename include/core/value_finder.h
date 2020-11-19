@@ -7,11 +7,11 @@ namespace finalproject {
 
 class ValueFinder {
 public:
-    const double kPlanckConstant = 6.626070040e-34;
+    const double kPlanckConstant = 6.626070040;
 
     ValueFinder();
-    double FindExpectedXValue(const Well &well);
-    double FindExpectedEnergyValue(const Particle &particle, const Well &well);
+    double FindExpectedXValue(const Well &well) const;
+    double FindExpectedEnergyValue(const Particle &particle, const Well &well) const;
 };
 
 }

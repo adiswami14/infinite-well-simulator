@@ -39,6 +39,9 @@ void FinalProjectApp::draw() {
     if(simulation_info_frame_.IsOpen()){
         DrawSimulationInfo();
     }
+    if(expected_values_frame_.IsOpen()) {
+        DrawExpectedValues();
+    }
 }
 
 void FinalProjectApp::keyDown(ci::app::KeyEvent event) {
@@ -110,6 +113,14 @@ void FinalProjectApp::DrawSimulationInfo() const {
 
     ci::gl::drawStringCentered("Particle Mass", vec2(730, 570), ci::Color("white"), ci::Font("Arial", 20));
     ci::gl::drawStringCentered(std::to_string(particle_.mass_), vec2(730, 600), ci::Color("white"), ci::Font("Arial", 15));
+}
+
+void FinalProjectApp::DrawExpectedValues() const {
+    ci::gl::drawStringCentered("<x> (Average X-Position): ", vec2(100, 250), ci::Color("white"), ci::Font("Arial", 15));
+    ci::gl::drawStringCentered(std::to_string(value_finder_.FindExpectedXValue(well_))+" m", vec2(100, 300), ci::Color("white"), ci::Font("Arial", 15));
+
+    ci::gl::drawStringCentered("<E> (Average Energy): ", vec2(100, 400), ci::Color("white"), ci::Font("Arial", 15));
+    ci::gl::drawStringCentered(std::to_string(value_finder_.FindExpectedEnergyValue(particle_, well_))+"*10^-34 J", vec2(100, 450), ci::Color("white"), ci::Font("Arial", 15));
 }
 }
 
