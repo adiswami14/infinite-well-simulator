@@ -21,8 +21,9 @@ public:
      * @param window_size The size of the Cinder window the frame is being drawn in
      * @param stroke_color The border color of the frame
      * @param fill_color The fill color of the frame
+     * @param is_right_to_left Whether the frame is supposed to move right to left or left to right
      */
-    DynamicFrame(size_t x_size, size_t y_size, size_t window_size, const ci::Color &stroke_color, const ci::Color& fill_color);
+    DynamicFrame(size_t x_size, size_t y_size, size_t window_size, const ci::Color &stroke_color, const ci::Color& fill_color, bool is_right_to_left);
 
     /**
      * Updates the x position of the frame so the frame can come in and out of the windo
@@ -49,6 +50,7 @@ private:
     size_t curr_x_; //current x-position of the frame
     size_t window_size_; //size of the Cinder window that the frame is drawn in
     bool active_; //whether or not the frame is being opened or closed
+    bool right_to_left_; //whether or not the frame moves right to left
 };
 
 }

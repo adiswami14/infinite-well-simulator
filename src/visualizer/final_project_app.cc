@@ -10,12 +10,14 @@ using namespace cinder::app;
 
 FinalProjectApp::FinalProjectApp() : well_(Well(100.0, 250.0)),
 top_frame_(vec2(0,0), vec2(kWindowSize, 200), ci::Color("green"), ci::Color("black")),
-side_panel_frame_(300, 700, kWindowSize, ci::Color("green"), ci::Color("black")){
+simulation_info_frame_(300, 700, kWindowSize, ci::Color("green"), ci::Color("black"), true),
+expected_values_frame_(200, 700, kWindowSize, ci::Color("green"), ci::Color("black"), false){
     ci::app::setWindowSize((int) kWindowSize, (int) kWindowSize);
 }
 
 void FinalProjectApp::update() {
-    side_panel_frame_.Update();
+    simulation_info_frame_.Update();
+    expected_values_frame_.Update();
 }
 
 void FinalProjectApp::draw() {
@@ -27,40 +29,49 @@ void FinalProjectApp::draw() {
     ci::gl::drawLine(vec2(well_.GetEndPos(), kWindowSize), vec2(well_.GetEndPos(), kHeight));
     ci::gl::drawLine(vec2(well_.GetEndPos(), kHeight), vec2(kWindowSize, kHeight));
 
+    ci::gl::color(ci::Color("yellow"));
+    ci::gl::drawLine(vec2(value_finder_.FindExpectedXValue(well_), 200), vec2(value_finder_.FindExpectedXValue(well_), kWindowSize));
+
     top_frame_.Draw();
-    side_panel_frame_.Draw();
+    simulation_info_frame_.Draw();
+    expected_values_frame_.Draw();
 
-
-    if(side_panel_frame_.IsOpen()){
+    if(simulation_info_frame_.IsOpen()){
         DrawSimulationInfo();
     }
 }
 
 void FinalProjectApp::keyDown(ci::app::KeyEvent event) {
     switch (event.getCode()) {
+        case ci::app::KeyEvent::KEY_a:
+            expected_values_frame_.SetActive(true);
+            break;
+        case ci::app::KeyEvent::KEY_s:
+            expected_values_frame_.SetActive(false);
+            break;
         case ci::app::KeyEvent::KEY_DOWN:
-            side_panel_frame_.SetActive(true);
+            simulation_info_frame_.SetActive(true);
             break;
         case ci::app::KeyEvent::KEY_UP:
-            side_panel_frame_.SetActive(false);
+            simulation_info_frame_.SetActive(false);
             break;
         case ci::app::KeyEvent::KEY_RIGHT:
-            if(side_panel_frame_.IsOpen()) {
+            if(simulation_info_frame_.IsOpen()) {
                 particle_.energy_state_++;
             }
             break;
         case ci::app::KeyEvent::KEY_LEFT:
-            if(particle_.energy_state_>1 && side_panel_frame_.IsOpen()) {
+            if(particle_.energy_state_>1 && simulation_info_frame_.IsOpen()) {
                 particle_.energy_state_--;
             }
             break;
         case ci::app::KeyEvent::KEY_PERIOD:
-            if(side_panel_frame_.IsOpen()) {
+            if(simulation_info_frame_.IsOpen()) {
                 particle_.mass_ += 0.5;
             }
             break;
         case ci::app::KeyEvent::KEY_COMMA:
-            if(particle_.mass_>0.5 && side_panel_frame_.IsOpen()) {
+            if(particle_.mass_>0.5 && simulation_info_frame_.IsOpen()) {
                 particle_.mass_ -= 0.5;
             }
             break;

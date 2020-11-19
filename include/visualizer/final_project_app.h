@@ -2,6 +2,7 @@
 
 #include <core/well.h>
 #include <core/particle.h>
+#include <core/value_finder.h>
 #include "cinder/app/App.h"
 #include "cinder/app/RendererGl.h"
 #include "cinder/gl/gl.h"
@@ -40,7 +41,9 @@ private:
     Well well_; //instance of Well in the simulation
     Particle particle_; //the Particle in the Well
     StaticFrame top_frame_; //The static frame at the top of the screen, used for the graph of wavefunction
-    DynamicFrame side_panel_frame_; //The dynamic side panel for displaying simulation information
+    DynamicFrame simulation_info_frame_; //The dynamic side panel for displaying simulation information
+    DynamicFrame expected_values_frame_; //The dynamic side panel for displaying expected values
+    ValueFinder value_finder_;
 };
 
 } //namespace visualizer
