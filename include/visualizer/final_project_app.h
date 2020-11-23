@@ -49,7 +49,8 @@ private:
     DynamicFrame simulation_info_frame_; //The dynamic side panel for displaying simulation information
     DynamicFrame expected_values_frame_; //The dynamic side panel for displaying expected values
     ValueFinder value_finder_;
-    Graph graph_;
+    Graph wavefunction_prob_dist_graph_;
+    Graph wavefunction_graph_;
 };
 
 } //namespace visualizer

@@ -12,13 +12,16 @@ FinalProjectApp::FinalProjectApp() : well_(Well(300.0, 450.0)),
 top_frame_(vec2(0,0), vec2(kWindowSize, 200), ci::Color("green"), ci::Color("black")),
 simulation_info_frame_(300, 700, kWindowSize, ci::Color("green"), ci::Color("black"), true),
 expected_values_frame_(200, 700, kWindowSize, ci::Color("green"), ci::Color("black"), false),
-graph_(vec2(350, 160), 160, 140, ci::Color("white")){
+wavefunction_prob_dist_graph_(vec2(150, 160), 500, 140, ci::Color("white"), 500, true, 2),
+wavefunction_graph_(vec2(well_.GetStartPos(), kHeight), well_.GetLength(), 75, ci::Color("white"), well_.GetLength(), false, 1){
     ci::app::setWindowSize((int) kWindowSize, (int) kWindowSize);
 }
 
 void FinalProjectApp::update() {
     simulation_info_frame_.Update();
     expected_values_frame_.Update();
+    wavefunction_graph_.SetUnits(well_.GetLength());
+    wavefunction_graph_.SetBottomRightCorner(vec2(well_.GetStartPos(), kHeight));
 }
 
 void FinalProjectApp::draw() {
@@ -26,9 +29,9 @@ void FinalProjectApp::draw() {
     ci::gl::clear(background_color);
     ci::Rectf left_rect(vec2(0, kHeight), vec2(well_.GetStartPos(),kWindowSize));
     ci::Rectf right_rect(vec2(well_.GetEndPos(), kHeight), vec2(kWindowSize, kWindowSize));
-    ci::gl::color(ci::Color("blue"));
-    ci::gl::drawSolidRect(left_rect);
-    ci::gl::drawSolidRect(right_rect);
+    ci::gl::color(ci::Color("green"));
+    ci::gl::drawStrokedRect(left_rect);
+    ci::gl::drawStrokedRect(right_rect);
 
     ci::gl::color(ci::Color("yellow"));
     ci::gl::drawLine(vec2(value_finder_.FindExpectedXValue(well_), 200), vec2(value_finder_.FindExpectedXValue(well_), kWindowSize));
@@ -46,8 +49,16 @@ void FinalProjectApp::draw() {
         DrawExpectedValues();
     }
 
-    graph_.Draw(well_, particle_);
+    wavefunction_prob_dist_graph_.Draw(well_, particle_);
 
+    ci::gl::begin(GL_LINES);
+    float step = 0.01f;
+    for(float x = well_.GetStartPos(); x<well_.GetEndPos(); x+=step) {
+        ci::gl::vertex(x, kHeight);
+    }
+    ci::gl::end();
+
+    wavefunction_graph_.Draw(well_, particle_);
 }
 
 void FinalProjectApp::keyDown(ci::app::KeyEvent event) {
@@ -92,10 +103,10 @@ void FinalProjectApp::mouseDown(ci::app::MouseEvent event) {
 }
 
 void FinalProjectApp::mouseDrag(ci::app::MouseEvent event) {
-    if(abs(event.getX()-well_.GetStartPos()) <= 5) {
+    if(abs(event.getX()-well_.GetStartPos()) <= 10) {
         well_.SetStartPos(event.getX());
     }
-    else if(abs(event.getX()-well_.GetEndPos()) <= 5) {
+    else if(abs(event.getX()-well_.GetEndPos()) <= 10) {
         well_.SetEndPos(event.getX());
     }
 }
