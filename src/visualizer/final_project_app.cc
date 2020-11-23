@@ -24,11 +24,11 @@ void FinalProjectApp::update() {
 void FinalProjectApp::draw() {
     ci::Color8u background_color(15, 15, 15);
     ci::gl::clear(background_color);
-    ci::gl::color(ci::Color("green"));
-    ci::gl::drawLine(vec2(0, kHeight), vec2(well_.GetStartPos(), kHeight));
-    ci::gl::drawLine(vec2(well_.GetStartPos(), kHeight), vec2(well_.GetStartPos(), kWindowSize));
-    ci::gl::drawLine(vec2(well_.GetEndPos(), kWindowSize), vec2(well_.GetEndPos(), kHeight));
-    ci::gl::drawLine(vec2(well_.GetEndPos(), kHeight), vec2(kWindowSize, kHeight));
+    ci::Rectf left_rect(vec2(0, kHeight), vec2(well_.GetStartPos(),kWindowSize));
+    ci::Rectf right_rect(vec2(well_.GetEndPos(), kHeight), vec2(kWindowSize, kWindowSize));
+    ci::gl::color(ci::Color("blue"));
+    ci::gl::drawSolidRect(left_rect);
+    ci::gl::drawSolidRect(right_rect);
 
     ci::gl::color(ci::Color("yellow"));
     ci::gl::drawLine(vec2(value_finder_.FindExpectedXValue(well_), 200), vec2(value_finder_.FindExpectedXValue(well_), kWindowSize));

@@ -13,11 +13,11 @@ void Graph::Draw(const Well &well, const Particle& particle) const {
                                glm::vec2(bottom_right_corner_.x + (x_size_/2), bottom_right_corner_.y - y_size_-10));
     ci::gl::drawLine(bottom_right_corner_, glm::vec2(bottom_right_corner_.x, bottom_right_corner_.y-y_size_));
     ci::gl::drawLine(bottom_right_corner_, glm::vec2(bottom_right_corner_.x+x_size_, bottom_right_corner_.y));
-    ci::gl::drawStringCentered("L/2", glm::vec2(bottom_right_corner_.x+75, bottom_right_corner_.y+10));
-    ci::gl::drawStringCentered("L", glm::vec2(bottom_right_corner_.x+150, bottom_right_corner_.y+10));
+    ci::gl::drawStringCentered("L/2", glm::vec2(bottom_right_corner_.x+(kUnits/2), bottom_right_corner_.y+10));
+    ci::gl::drawStringCentered("L", glm::vec2(bottom_right_corner_.x+kUnits, bottom_right_corner_.y+10));
     ci::gl::drawStringCentered("2/L", glm::vec2(bottom_right_corner_.x-10, bottom_right_corner_.y-100));
     float x1, x2, y1, y2;
-    float unit = well.GetLength()/150;
+    float unit = well.GetLength()/kUnits;
     for (double i=0;i<well.GetLength();i+=unit) {
         x1 = (float)i;
         x2 = ((float)i + unit);
