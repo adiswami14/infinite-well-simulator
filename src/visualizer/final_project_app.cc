@@ -8,10 +8,11 @@ using glm::vec2;
 using namespace cinder::app;
 
 
-FinalProjectApp::FinalProjectApp() : well_(Well(100.0, 250.0)),
+FinalProjectApp::FinalProjectApp() : well_(Well(300.0, 450.0)),
 top_frame_(vec2(0,0), vec2(kWindowSize, 200), ci::Color("green"), ci::Color("black")),
 simulation_info_frame_(300, 700, kWindowSize, ci::Color("green"), ci::Color("black"), true),
-expected_values_frame_(200, 700, kWindowSize, ci::Color("green"), ci::Color("black"), false){
+expected_values_frame_(200, 700, kWindowSize, ci::Color("green"), ci::Color("black"), false),
+graph_(vec2(350, 160), 160, 140, ci::Color("white")){
     ci::app::setWindowSize((int) kWindowSize, (int) kWindowSize);
 }
 
@@ -45,18 +46,8 @@ void FinalProjectApp::draw() {
         DrawExpectedValues();
     }
 
-    ci::gl::color(ci::Color("white"));
-    float x1, x2, y1, y2;
-    float unit = well_.GetLength()/150;
-    for (double i=0;i<well_.GetLength();i+=unit) {
-        x1 = (float)i;
-        x2 = ((float)i + unit);
-        y1 = -100*pow(sin((particle_.energy_state_*x1/(well_.GetLength())) * M_PI),2);
-        y2 = -100*pow(sin((particle_.energy_state_*x2/(well_.GetLength())) * M_PI),2);
-        x1/=unit;
-        x2/=unit;
-        ci::gl::drawLine(vec2(x1+300, y1 + 150), vec2(x2+300, y2 + 150));
-    }
+    graph_.Draw(well_, particle_);
+
 }
 
 void FinalProjectApp::keyDown(ci::app::KeyEvent event) {
@@ -137,7 +128,7 @@ void FinalProjectApp::DrawExpectedValues() const {
     ci::gl::drawStringCentered("<E> (Average Energy): ", vec2(100, 400), ci::Color("white"), ci::Font("Arial", 15));
     ci::gl::drawStringCentered(std::to_string(value_finder_.FindExpectedEnergyValue(particle_, well_))+"*10^-68 J", vec2(100, 450), ci::Color("white"), ci::Font("Arial", 15));
 
-    ci::gl::drawStringCentered("Δp (Probability Spread): ", vec2(100, 550), ci::Color("white"), ci::Font("Arial", 15));
+    ci::gl::drawStringCentered("Δp (Momentum Spread): ", vec2(100, 550), ci::Color("white"), ci::Font("Arial", 15));
     ci::gl::drawStringCentered(std::to_string(value_finder_.FindProbabilitySpread(particle_, well_))+"*10^-34 kg * m/s", vec2(100, 600), ci::Color("white"), ci::Font("Arial", 15));
 
     ci::gl::drawStringCentered("Δx (X-Position Spread): ", vec2(100, 700), ci::Color("white"), ci::Font("Arial", 15));

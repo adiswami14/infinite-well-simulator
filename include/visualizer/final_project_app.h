@@ -8,6 +8,7 @@
 #include "cinder/gl/gl.h"
 #include "static_frame.h"
 #include "dynamic_frame.h"
+#include "graph.h"
 
 namespace finalproject {
 
@@ -48,6 +49,7 @@ private:
     DynamicFrame simulation_info_frame_; //The dynamic side panel for displaying simulation information
     DynamicFrame expected_values_frame_; //The dynamic side panel for displaying expected values
     ValueFinder value_finder_;
+    Graph graph_;
 };
 
 } //namespace visualizer
