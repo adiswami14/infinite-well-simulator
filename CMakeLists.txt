@@ -56,7 +56,9 @@ list(APPEND SOURCE_FILES    ${CORE_SOURCE_FILES}
         src/visualizer/frame.cc
         src/visualizer/static_frame.cc
         src/visualizer/dynamic_frame.cc
-        src/visualizer/graph.cc)
+        src/visualizer/graph.cc
+        src/visualizer/sin_graph.cc
+        src/visualizer/cardinal_sin_graph.cc)
 
 list(APPEND TEST_FILES)
 

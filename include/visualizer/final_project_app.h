@@ -8,7 +8,8 @@
 #include "cinder/gl/gl.h"
 #include "static_frame.h"
 #include "dynamic_frame.h"
-#include "graph.h"
+#include "sin_graph.h"
+#include "cardinal_sin_graph.h"
 
 namespace finalproject {
 
@@ -49,8 +50,9 @@ private:
     DynamicFrame simulation_info_frame_; //The dynamic side panel for displaying simulation information
     DynamicFrame expected_values_frame_; //The dynamic side panel for displaying expected values
     ValueFinder value_finder_;
-    Graph wavefunction_prob_dist_graph_;
-    Graph wavefunction_graph_;
+    SinGraph wavefunction_prob_dist_graph_;
+    SinGraph wavefunction_graph_;
+    CardinalSinGraph momentum_wavefunction_graph_;
 };
 
 } //namespace visualizer

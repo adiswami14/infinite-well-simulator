@@ -13,7 +13,8 @@ top_frame_(vec2(0,0), vec2(kWindowSize, 200), ci::Color("green"), ci::Color("bla
 simulation_info_frame_(300, 700, kWindowSize, ci::Color("green"), ci::Color("black"), true),
 expected_values_frame_(200, 700, kWindowSize, ci::Color("green"), ci::Color("black"), false),
 wavefunction_prob_dist_graph_(vec2(150, 160), 500, 140, ci::Color("white"), 500, true, 2),
-wavefunction_graph_(vec2(well_.GetStartPos(), kHeight), well_.GetLength(), 75, ci::Color("white"), well_.GetLength(), false, 1){
+wavefunction_graph_(vec2(well_.GetStartPos(), kHeight), well_.GetLength(), 75, ci::Color("white"), well_.GetLength(), false, 1),
+momentum_wavefunction_graph_(vec2(well_.GetStartPos(), kHeight), well_.GetLength(), 75, ci::Color("orange"), well_.GetLength(), false, 1){
     ci::app::setWindowSize((int) kWindowSize, (int) kWindowSize);
 }
 
@@ -22,6 +23,9 @@ void FinalProjectApp::update() {
     expected_values_frame_.Update();
     wavefunction_graph_.SetUnits(well_.GetLength());
     wavefunction_graph_.SetBottomRightCorner(vec2(well_.GetStartPos(), kHeight));
+    momentum_wavefunction_graph_.SetKTerm(value_finder_.FindExpectedKValue(particle_, well_));
+    momentum_wavefunction_graph_.SetUnits(well_.GetLength());
+    momentum_wavefunction_graph_.SetBottomRightCorner(vec2(well_.GetStartPos(), kHeight));
 }
 
 void FinalProjectApp::draw() {
@@ -37,10 +41,22 @@ void FinalProjectApp::draw() {
     ci::gl::drawLine(vec2(value_finder_.FindExpectedXValue(well_), 200), vec2(value_finder_.FindExpectedXValue(well_), kWindowSize));
 
     DrawXSpreadRectangle();
+    wavefunction_graph_.Draw(well_, particle_);
+    momentum_wavefunction_graph_.Draw(well_, particle_);
+
+    ci::gl::color(ci::Color("white"));
+    ci::gl::begin(GL_LINES);
+    float step = 0.01f;
+    for(float x = well_.GetStartPos(); x<well_.GetEndPos(); x+=step) {
+        ci::gl::vertex(x, kHeight);
+    }
+    ci::gl::end();
 
     top_frame_.Draw();
     simulation_info_frame_.Draw();
     expected_values_frame_.Draw();
+
+
 
     if(simulation_info_frame_.IsOpen()){
         DrawSimulationInfo();
@@ -50,15 +66,6 @@ void FinalProjectApp::draw() {
     }
 
     wavefunction_prob_dist_graph_.Draw(well_, particle_);
-
-    ci::gl::begin(GL_LINES);
-    float step = 0.01f;
-    for(float x = well_.GetStartPos(); x<well_.GetEndPos(); x+=step) {
-        ci::gl::vertex(x, kHeight);
-    }
-    ci::gl::end();
-
-    wavefunction_graph_.Draw(well_, particle_);
 }
 
 void FinalProjectApp::keyDown(ci::app::KeyEvent event) {

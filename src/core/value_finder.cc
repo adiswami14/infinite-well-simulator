@@ -27,5 +27,10 @@ double ValueFinder::FindXValueSpread(const Particle &particle, const Well& well)
     return well.GetLength()*square_root_factor;
 }
 
+double ValueFinder::FindExpectedKValue(const Particle &particle, const Well &well) const {
+    double energy = FindExpectedEnergyValue(particle, well);
+    return sqrt((2*particle.mass_*energy)/pow(kPlanckConstant,2));
+}
+
 }
 

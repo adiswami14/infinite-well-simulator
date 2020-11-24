@@ -14,6 +14,7 @@ public:
     double FindExpectedEnergyValue(const Particle &particle, const Well &well) const;
     double FindProbabilitySpread(const Particle &particle, const Well &well) const;
     double FindXValueSpread(const Particle &particle, const Well &well) const;
+    double FindExpectedKValue(const Particle &particle, const Well &well) const;
 };
 
 }
