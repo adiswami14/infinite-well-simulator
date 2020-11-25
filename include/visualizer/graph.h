@@ -14,6 +14,10 @@ public:
 protected:
     void Draw(const Well &well, const Particle& particle) const;
 
+    void SetUnits(size_t units);
+
+    void SetBottomRightCorner(const glm::vec2 &bottom_right_corner);
+
     glm::vec2 bottom_right_corner_;
     size_t x_size_;
     size_t y_size_;

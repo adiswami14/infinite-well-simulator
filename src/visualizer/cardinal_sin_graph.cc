@@ -17,7 +17,7 @@ void CardinalSinGraph::Draw(const Well &well, const Particle &particle) const {
                                              bottom_right_corner_.y - y_size_ - 10));
         ci::gl::drawLine(bottom_right_corner_, glm::vec2(bottom_right_corner_.x, bottom_right_corner_.y - y_size_));
         ci::gl::drawLine(bottom_right_corner_, glm::vec2(bottom_right_corner_.x + x_size_, bottom_right_corner_.y));
-        ci::gl::drawStringCentered("L/2π", glm::vec2(bottom_right_corner_.x - 10, bottom_right_corner_.y - 100));
+        ci::gl::drawStringCentered("L/2π", glm::vec2(bottom_right_corner_.x - 15, bottom_right_corner_.y - 100));
     }
 
     float x1, x2, y1, y2;

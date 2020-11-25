@@ -10,11 +10,13 @@ using namespace cinder::app;
 
 FinalProjectApp::FinalProjectApp() : well_(Well(300.0, 450.0)),
 top_frame_(vec2(0,0), vec2(kWindowSize, 200), ci::Color("green"), ci::Color("black")),
+bottom_frame_(vec2(0,700), vec2(kWindowSize, kWindowSize), ci::Color("green"), ci::Color("black")),
 simulation_info_frame_(300, 700, kWindowSize, ci::Color("green"), ci::Color("black"), true),
 expected_values_frame_(200, 700, kWindowSize, ci::Color("green"), ci::Color("black"), false),
 wavefunction_prob_dist_graph_(vec2(150, 160), 500, 140, ci::Color("white"), 500, true, 2),
 wavefunction_graph_(vec2(well_.GetStartPos(), kHeight), well_.GetLength(), 75, ci::Color("white"), well_.GetLength(), false, 1),
-momentum_wavefunction_graph_(vec2(well_.GetStartPos(), kHeight), well_.GetLength(), 75, ci::Color("orange"), well_.GetLength(), false, 1){
+momentum_wavefunction_graph_(vec2(well_.GetStartPos(), kHeight), well_.GetLength(), 75, ci::Color("orange"), well_.GetLength(), false, 1),
+momentum_prob_dist_graph_(vec2(150, 860), 500, 140, ci::Color("white"), 500, true, 2){
     ci::app::setWindowSize((int) kWindowSize, (int) kWindowSize);
 }
 
@@ -24,6 +26,7 @@ void FinalProjectApp::update() {
     wavefunction_graph_.SetUnits(well_.GetLength());
     wavefunction_graph_.SetBottomRightCorner(vec2(well_.GetStartPos(), kHeight));
     momentum_wavefunction_graph_.SetKTerm(value_finder_.FindExpectedKValue(particle_, well_));
+    momentum_prob_dist_graph_.SetKTerm(value_finder_.FindExpectedKValue(particle_, well_));
     momentum_wavefunction_graph_.SetUnits(well_.GetLength());
     momentum_wavefunction_graph_.SetBottomRightCorner(vec2(well_.GetStartPos(), kHeight));
 }
@@ -65,7 +68,9 @@ void FinalProjectApp::draw() {
         DrawExpectedValues();
     }
 
+    bottom_frame_.Draw();
     wavefunction_prob_dist_graph_.Draw(well_, particle_);
+    momentum_prob_dist_graph_.Draw(well_, particle_);
 }
 
 void FinalProjectApp::keyDown(ci::app::KeyEvent event) {
@@ -143,14 +148,14 @@ void FinalProjectApp::DrawExpectedValues() const {
     ci::gl::drawStringCentered("<x> (Average X-Position): ", vec2(100, 250), ci::Color("white"), ci::Font("Arial", 15));
     ci::gl::drawStringCentered(std::to_string(value_finder_.FindExpectedXValue(well_)), vec2(100, 300), ci::Color("white"), ci::Font("Arial", 15));
 
-    ci::gl::drawStringCentered("<E> (Average Energy): ", vec2(100, 400), ci::Color("white"), ci::Font("Arial", 15));
-    ci::gl::drawStringCentered(std::to_string(value_finder_.FindExpectedEnergyValue(particle_, well_))+"*10^-68 J", vec2(100, 450), ci::Color("white"), ci::Font("Arial", 15));
+    ci::gl::drawStringCentered("<E> (Average Energy): ", vec2(100, 350), ci::Color("white"), ci::Font("Arial", 15));
+    ci::gl::drawStringCentered(std::to_string(value_finder_.FindExpectedEnergyValue(particle_, well_))+"*10^-68 J", vec2(100, 400), ci::Color("white"), ci::Font("Arial", 15));
 
-    ci::gl::drawStringCentered("Δp (Momentum Spread): ", vec2(100, 550), ci::Color("white"), ci::Font("Arial", 15));
-    ci::gl::drawStringCentered(std::to_string(value_finder_.FindProbabilitySpread(particle_, well_))+"*10^-34 kg * m/s", vec2(100, 600), ci::Color("white"), ci::Font("Arial", 15));
+    ci::gl::drawStringCentered("Δp (Momentum Spread): ", vec2(100, 450), ci::Color("white"), ci::Font("Arial", 15));
+    ci::gl::drawStringCentered(std::to_string(value_finder_.FindProbabilitySpread(particle_, well_))+"*10^-34 kg * m/s", vec2(100, 500), ci::Color("white"), ci::Font("Arial", 15));
 
-    ci::gl::drawStringCentered("Δx (X-Position Spread): ", vec2(100, 700), ci::Color("white"), ci::Font("Arial", 15));
-    ci::gl::drawStringCentered(std::to_string(value_finder_.FindXValueSpread(particle_, well_))+" m", vec2(100, 750), ci::Color("white"), ci::Font("Arial", 15));
+    ci::gl::drawStringCentered("Δx (X-Position Spread): ", vec2(100, 550), ci::Color("white"), ci::Font("Arial", 15));
+    ci::gl::drawStringCentered(std::to_string(value_finder_.FindXValueSpread(particle_, well_))+" m", vec2(100, 600), ci::Color("white"), ci::Font("Arial", 15));
 }
 
 void FinalProjectApp::DrawXSpreadRectangle() const {

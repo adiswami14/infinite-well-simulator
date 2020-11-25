@@ -21,7 +21,7 @@ namespace visualizer {
 class FinalProjectApp : public ci::app::App {
 public:
     const double kWindowSize = 900; //size of the Cinder window
-    const double kHeight = 500; //y-value at which the infinite well is drawn
+    const double kHeight = 350; //y-value at which the infinite well is drawn
 
     /**
      * Default constructor for this class
@@ -47,12 +47,14 @@ private:
     Well well_; //instance of Well in the simulation
     Particle particle_; //the Particle in the Well
     StaticFrame top_frame_; //The static frame at the top of the screen, used for the graph of wavefunction
+    StaticFrame bottom_frame_;
     DynamicFrame simulation_info_frame_; //The dynamic side panel for displaying simulation information
     DynamicFrame expected_values_frame_; //The dynamic side panel for displaying expected values
     ValueFinder value_finder_;
     SinGraph wavefunction_prob_dist_graph_;
     SinGraph wavefunction_graph_;
     CardinalSinGraph momentum_wavefunction_graph_;
+    CardinalSinGraph momentum_prob_dist_graph_;
 };
 
 } //namespace visualizer
