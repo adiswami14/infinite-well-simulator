@@ -9,11 +9,11 @@ double ValueFinder::FindExpectedXValue(const Well &well) const {
 }
 
 double ValueFinder::FindExpectedEnergyValue(const Particle &particle, const Well &well) const {
-    double p_squared = FindProbabilitySpread(particle, well);
+    double p_squared = FindMomentumSpread(particle, well);
     return p_squared/(2*particle.mass_);
 }
 
-double ValueFinder::FindProbabilitySpread(const Particle &particle, const Well &well) const {
+double ValueFinder::FindMomentumSpread(const Particle &particle, const Well &well) const {
     double factor = particle.energy_state_*M_PI*kPlanckConstant;
     return (factor/well.GetLength());
 }

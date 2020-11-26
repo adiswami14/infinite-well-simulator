@@ -47,6 +47,7 @@ void FinalProjectApp::draw() {
     wavefunction_graph_.Draw(well_, particle_);
     momentum_wavefunction_graph_.Draw(well_, particle_);
 
+    //code below draws the dashed line from one end of well to another
     ci::gl::color(ci::Color("white"));
     ci::gl::begin(GL_LINES);
     float step = 0.01f;
@@ -152,7 +153,7 @@ void FinalProjectApp::DrawExpectedValues() const {
     ci::gl::drawStringCentered(std::to_string(value_finder_.FindExpectedEnergyValue(particle_, well_))+"*10^-68 J", vec2(100, 400), ci::Color("white"), ci::Font("Arial", 15));
 
     ci::gl::drawStringCentered("Δp (Momentum Spread): ", vec2(100, 450), ci::Color("white"), ci::Font("Arial", 15));
-    ci::gl::drawStringCentered(std::to_string(value_finder_.FindProbabilitySpread(particle_, well_))+"*10^-34 kg * m/s", vec2(100, 500), ci::Color("white"), ci::Font("Arial", 15));
+    ci::gl::drawStringCentered(std::to_string(value_finder_.FindMomentumSpread(particle_, well_)) + "*10^-34 kg * m/s", vec2(100, 500), ci::Color("white"), ci::Font("Arial", 15));
 
     ci::gl::drawStringCentered("Δx (X-Position Spread): ", vec2(100, 550), ci::Color("white"), ci::Font("Arial", 15));
     ci::gl::drawStringCentered(std::to_string(value_finder_.FindXValueSpread(particle_, well_))+" m", vec2(100, 600), ci::Color("white"), ci::Font("Arial", 15));

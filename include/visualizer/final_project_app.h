@@ -40,21 +40,27 @@ private:
      */
     void DrawSimulationInfo() const;
 
+    /**
+     * Draws the expected values of the energy, x-position, x-spread and momentum-spread on the screen
+     */
     void DrawExpectedValues() const;
 
+    /**
+     * Draws the possible x-spread around the average value of x-position
+     */
     void DrawXSpreadRectangle() const;
 
     Well well_; //instance of Well in the simulation
     Particle particle_; //the Particle in the Well
-    StaticFrame top_frame_; //The static frame at the top of the screen, used for the graph of wavefunction
-    StaticFrame bottom_frame_;
+    StaticFrame top_frame_; //The static frame at the top of the screen, used for the graph of spatial wavefunction
+    StaticFrame bottom_frame_; //Static frame at bottom of screen, for graph of momentum wavefunction
     DynamicFrame simulation_info_frame_; //The dynamic side panel for displaying simulation information
     DynamicFrame expected_values_frame_; //The dynamic side panel for displaying expected values
-    ValueFinder value_finder_;
-    SinGraph wavefunction_prob_dist_graph_;
-    SinGraph wavefunction_graph_;
-    CardinalSinGraph momentum_wavefunction_graph_;
-    CardinalSinGraph momentum_prob_dist_graph_;
+    ValueFinder value_finder_; //value finder instance to get expected values
+    SinGraph wavefunction_prob_dist_graph_; //The sin graph representing the probability distribution of the spatial wavefunction
+    SinGraph wavefunction_graph_; //The sin graph representing the spatial wavefunction itself
+    CardinalSinGraph momentum_wavefunction_graph_; //The sin graph representing the momentum-space wavefunction
+    CardinalSinGraph momentum_prob_dist_graph_; //The sin graph representing the probability distribution of the momentum wavefunction
 };
 
 } //namespace visualizer

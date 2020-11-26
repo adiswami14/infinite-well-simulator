@@ -9,17 +9,43 @@ namespace finalproject {
 
 namespace visualizer {
 
+/**
+ * Class that represents a general sin curve, with power to raise curve to passed in
+ */
 class SinGraph : Graph{
 public:
+    /**
+     * The constructor for the SinGraph class
+     * @param bottom_right_corner The origin point of the graph
+     * @param x_size The size of the graph horizontally
+     * @param y_size The size of the graph vertically
+     * @param graph_color The color of the graph
+     * @param units The number of units on the graph
+     * @param draw_labels Whether or not to draw the axes and titles of the graph
+     * @param sin_power The power to raise sin curve to
+     */
     SinGraph(const glm::vec2& bottom_right_corner, size_t x_size, size_t y_size, const ci::Color &graph_color, size_t units, bool draw_labels, size_t sin_power);
 
+    /**
+     * Draws sin curve on screen
+     * @param well The well of the simulation
+     * @param particle Particle in the well
+     */
     void Draw(const Well &well, const Particle& particle) const;
 
+    /**
+     * Set the number of units in graph to desired amount
+     * @param units The desired amount of units
+     */
     void SetUnits(size_t units);
 
+    /**
+     * Sets the origin point of the graph to a new value
+     * @param bottom_right_corner Desired value of the origin point of the graph
+     */
     void SetBottomRightCorner(const glm::vec2 &bottom_right_corner);
 private:
-    size_t sin_power_;
+    size_t sin_power_; //the power to raise the sin curve to
 
 };
 
