@@ -44,6 +44,8 @@ public:
      * @param bottom_right_corner Desired value of the origin point of the graph
      */
     void SetBottomRightCorner(const glm::vec2 &bottom_right_corner);
+
+    void DrawLabels() const;
 private:
     size_t sin_power_; //the power to raise the sin curve to
 

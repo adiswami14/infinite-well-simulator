@@ -23,13 +23,6 @@ public:
      * @param draw_labels Whether or not to draw the axes and titles of the graph
      */
     Graph(const glm::vec2& bottom_right_corner, size_t x_size, size_t y_size, const ci::Color &graph_color, size_t units, bool draw_labels);
-protected:
-    /**
-     * Protected method for drawing the graph
-     * @param well The well of the simulation
-     * @param particle The particle in the well
-     */
-    void Draw(const Well &well, const Particle& particle) const;
 
     /**
      * Set the number of units in graph to desired amount
@@ -42,6 +35,7 @@ protected:
      * @param bottom_right_corner Desired value of the origin point of the graph
      */
     void SetBottomRightCorner(const glm::vec2 &bottom_right_corner);
+protected:
 
     glm::vec2 bottom_right_corner_; //Origin point of graph
     size_t x_size_; //Horizontal size of graph

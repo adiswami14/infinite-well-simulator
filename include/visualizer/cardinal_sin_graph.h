@@ -50,6 +50,8 @@ public:
      * @param bottom_right_corner Desired value of the origin point of the graph
      */
     void SetBottomRightCorner(const glm::vec2 &bottom_right_corner);
+
+    void DrawLabels() const;
 private:
     size_t cardinal_sin_power_; //The power to raise the cardinal sine curve to
     double k_term_; //The k-term of the particle

@@ -10,15 +10,7 @@ Graph(bottom_right_corner, x_size, y_size, graph_color, units, draw_labels), sin
 void SinGraph::Draw(const Well &well, const Particle& particle) const {
     ci::gl::color(ci::Color(graph_color_));
     if(draw_labels_) {
-        ci::gl::drawStringCentered("Probability Distribution for Wavefunction SinGraph",
-                                   glm::vec2(bottom_right_corner_.x + (x_size_ / 2),
-                                             bottom_right_corner_.y - y_size_ - 10));
-        ci::gl::drawLine(bottom_right_corner_, glm::vec2(bottom_right_corner_.x, bottom_right_corner_.y - y_size_));
-        ci::gl::drawLine(bottom_right_corner_, glm::vec2(bottom_right_corner_.x + x_size_, bottom_right_corner_.y));
-        ci::gl::drawStringCentered("L/2",
-                                   glm::vec2(bottom_right_corner_.x + (units_ / 2), bottom_right_corner_.y + 10));
-        ci::gl::drawStringCentered("L", glm::vec2(bottom_right_corner_.x + units_, bottom_right_corner_.y + 10));
-        ci::gl::drawStringCentered("2/L", glm::vec2(bottom_right_corner_.x - 10, bottom_right_corner_.y - 100));
+        DrawLabels();
     }
     float x1, x2, y1, y2;
     float unit = well.GetLength()/units_;
@@ -38,13 +30,24 @@ void SinGraph::Draw(const Well &well, const Particle& particle) const {
 
 
 void SinGraph::SetUnits(size_t units) {
-    units_ = units;
+    Graph::SetUnits(units);
 }
 
 void SinGraph::SetBottomRightCorner(const glm::vec2 &bottom_right_corner) {
-    bottom_right_corner_ = bottom_right_corner;
+    Graph::SetBottomRightCorner(bottom_right_corner);
 }
 
+void SinGraph::DrawLabels() const {
+    ci::gl::drawStringCentered("Probability Distribution for Wavefunction SinGraph",
+                               glm::vec2(bottom_right_corner_.x + (x_size_ / 2),
+                                         bottom_right_corner_.y - y_size_ - 10));
+    ci::gl::drawLine(bottom_right_corner_, glm::vec2(bottom_right_corner_.x, bottom_right_corner_.y - y_size_));
+    ci::gl::drawLine(bottom_right_corner_, glm::vec2(bottom_right_corner_.x + x_size_, bottom_right_corner_.y));
+    ci::gl::drawStringCentered("L/2",
+                               glm::vec2(bottom_right_corner_.x + (units_ / 2), bottom_right_corner_.y + 10));
+    ci::gl::drawStringCentered("L", glm::vec2(bottom_right_corner_.x + units_, bottom_right_corner_.y + 10));
+    ci::gl::drawStringCentered("2/L", glm::vec2(bottom_right_corner_.x - 10, bottom_right_corner_.y - 100));
+}
 }
 
 }

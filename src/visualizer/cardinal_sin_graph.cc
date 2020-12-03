@@ -12,14 +12,7 @@ CardinalSinGraph::CardinalSinGraph(const glm::vec2 &bottom_right_corner, size_t 
 void CardinalSinGraph::Draw(const Well &well, const Particle &particle) const {
     ci::gl::color(ci::Color(graph_color_));
     if(draw_labels_) {
-        ci::gl::drawStringCentered("Momentum-Space Wavefunction Probability Distribution",
-                                   glm::vec2(bottom_right_corner_.x + (x_size_ / 2),
-                                             bottom_right_corner_.y - y_size_ - 10));
-        ci::gl::drawLine(bottom_right_corner_, glm::vec2(bottom_right_corner_.x, bottom_right_corner_.y - y_size_));
-        ci::gl::drawLine(bottom_right_corner_, glm::vec2(bottom_right_corner_.x + x_size_, bottom_right_corner_.y));
-        ci::gl::drawStringCentered("L/2π", glm::vec2(bottom_right_corner_.x - 15, bottom_right_corner_.y - 100));
-        ci::gl::drawStringCentered("0",
-                                   glm::vec2(bottom_right_corner_.x + (units_ / 2), bottom_right_corner_.y + 10));
+        DrawLabels();
 
         ci::gl::begin(GL_LINES);
         float step = 0.01f;
@@ -53,11 +46,22 @@ void CardinalSinGraph::SetKTerm(double k_term) {
 
 
 void CardinalSinGraph::SetUnits(size_t units) {
-    units_ = units;
+    Graph::SetUnits(units);
 }
 
 void CardinalSinGraph::SetBottomRightCorner(const glm::vec2 &bottom_right_corner) {
-    bottom_right_corner_ = bottom_right_corner;
+    Graph::SetBottomRightCorner(bottom_right_corner);
+}
+
+void CardinalSinGraph::DrawLabels() const {
+    ci::gl::drawStringCentered("Momentum-Space Wavefunction Probability Distribution",
+                               glm::vec2(bottom_right_corner_.x + (x_size_ / 2),
+                                         bottom_right_corner_.y - y_size_ - 10));
+    ci::gl::drawLine(bottom_right_corner_, glm::vec2(bottom_right_corner_.x, bottom_right_corner_.y - y_size_));
+    ci::gl::drawLine(bottom_right_corner_, glm::vec2(bottom_right_corner_.x + x_size_, bottom_right_corner_.y));
+    ci::gl::drawStringCentered("L/2π", glm::vec2(bottom_right_corner_.x - 15, bottom_right_corner_.y - 100));
+    ci::gl::drawStringCentered("0",
+                               glm::vec2(bottom_right_corner_.x + (units_ / 2), bottom_right_corner_.y + 10));
 }
 }
 
