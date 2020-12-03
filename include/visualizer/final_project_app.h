@@ -50,6 +50,8 @@ private:
      */
     void DrawXSpreadRectangle() const;
 
+    void DrawInstructionsMenu() const;
+
     Well well_; //instance of Well in the simulation
     Particle particle_; //the Particle in the Well
     StaticFrame top_frame_; //The static frame at the top of the screen, used for the graph of spatial wavefunction
@@ -61,6 +63,7 @@ private:
     SinGraph wavefunction_graph_; //The sin graph representing the spatial wavefunction itself
     CardinalSinGraph momentum_wavefunction_graph_; //The sin graph representing the momentum-space wavefunction
     CardinalSinGraph momentum_prob_dist_graph_; //The sin graph representing the probability distribution of the momentum wavefunction
+    bool instruction_menu_;
 };
 
 } //namespace visualizer

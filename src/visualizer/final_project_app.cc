@@ -18,6 +18,7 @@ wavefunction_graph_(vec2(well_.GetStartPos(), kHeight), well_.GetLength(), 75, c
 momentum_wavefunction_graph_(vec2(well_.GetStartPos(), kHeight), well_.GetLength(), 75, ci::Color("orange"), well_.GetLength(), false, 1),
 momentum_prob_dist_graph_(vec2(150, 860), 500, 140, ci::Color("white"), 500, true, 2){
     ci::app::setWindowSize((int) kWindowSize, (int) kWindowSize);
+    instruction_menu_ = true;
 }
 
 void FinalProjectApp::update() {
@@ -34,44 +35,48 @@ void FinalProjectApp::update() {
 void FinalProjectApp::draw() {
     ci::Color8u background_color(15, 15, 15);
     ci::gl::clear(background_color);
-    ci::Rectf left_rect(vec2(0, kHeight), vec2(well_.GetStartPos(),kWindowSize));
-    ci::Rectf right_rect(vec2(well_.GetEndPos(), kHeight), vec2(kWindowSize, kWindowSize));
-    ci::gl::color(ci::Color("green"));
-    ci::gl::drawStrokedRect(left_rect);
-    ci::gl::drawStrokedRect(right_rect);
+    if(instruction_menu_) {
+        DrawInstructionsMenu();
+    } else {
+        ci::Rectf left_rect(vec2(0, kHeight), vec2(well_.GetStartPos(), kWindowSize));
+        ci::Rectf right_rect(vec2(well_.GetEndPos(), kHeight), vec2(kWindowSize, kWindowSize));
+        ci::gl::color(ci::Color("green"));
+        ci::gl::drawStrokedRect(left_rect);
+        ci::gl::drawStrokedRect(right_rect);
 
-    ci::gl::color(ci::Color("yellow"));
-    ci::gl::drawLine(vec2(value_finder_.FindExpectedXValue(well_), 200), vec2(value_finder_.FindExpectedXValue(well_), kWindowSize));
+        ci::gl::color(ci::Color("yellow"));
+        ci::gl::drawLine(vec2(value_finder_.FindExpectedXValue(well_), 200),
+                         vec2(value_finder_.FindExpectedXValue(well_), kWindowSize));
 
-    DrawXSpreadRectangle();
-    wavefunction_graph_.Draw(well_, particle_);
-    momentum_wavefunction_graph_.Draw(well_, particle_);
+        DrawXSpreadRectangle();
+        wavefunction_graph_.Draw(well_, particle_);
+        momentum_wavefunction_graph_.Draw(well_, particle_);
 
-    //code below draws the dashed line from one end of well to another
-    ci::gl::color(ci::Color("white"));
-    ci::gl::begin(GL_LINES);
-    float step = 0.01f;
-    for(float x = well_.GetStartPos(); x<well_.GetEndPos(); x+=step) {
-        ci::gl::vertex(x, kHeight);
+        //code below draws the dashed line from one end of well to another
+        ci::gl::color(ci::Color("white"));
+        ci::gl::begin(GL_LINES);
+        float step = 0.01f;
+        for (float x = well_.GetStartPos(); x < well_.GetEndPos(); x += step) {
+            ci::gl::vertex(x, kHeight);
+        }
+        ci::gl::end();
+
+        top_frame_.Draw();
+        simulation_info_frame_.Draw();
+        expected_values_frame_.Draw();
+
+
+        if (simulation_info_frame_.IsOpen()) {
+            DrawSimulationInfo();
+        }
+        if (expected_values_frame_.IsOpen()) {
+            DrawExpectedValues();
+        }
+
+        bottom_frame_.Draw();
+        wavefunction_prob_dist_graph_.Draw(well_, particle_);
+        momentum_prob_dist_graph_.Draw(well_, particle_);
     }
-    ci::gl::end();
-
-    top_frame_.Draw();
-    simulation_info_frame_.Draw();
-    expected_values_frame_.Draw();
-
-
-
-    if(simulation_info_frame_.IsOpen()){
-        DrawSimulationInfo();
-    }
-    if(expected_values_frame_.IsOpen()) {
-        DrawExpectedValues();
-    }
-
-    bottom_frame_.Draw();
-    wavefunction_prob_dist_graph_.Draw(well_, particle_);
-    momentum_prob_dist_graph_.Draw(well_, particle_);
 }
 
 void FinalProjectApp::keyDown(ci::app::KeyEvent event) {
@@ -81,6 +86,11 @@ void FinalProjectApp::keyDown(ci::app::KeyEvent event) {
             break;
         case ci::app::KeyEvent::KEY_s:
             expected_values_frame_.SetActive(false);
+            break;
+        case ci::app::KeyEvent::KEY_SPACE:
+            if(instruction_menu_) {
+                instruction_menu_ = false;
+            } else instruction_menu_ = true;
             break;
         case ci::app::KeyEvent::KEY_DOWN:
             simulation_info_frame_.SetActive(true);
@@ -166,6 +176,22 @@ void FinalProjectApp::DrawXSpreadRectangle() const {
     ci::Rectf rect(vec2(average_x-(x_spread/2),200), vec2(average_x+(x_spread/2),kWindowSize));
     ci::gl::color(ci::ColorA( 0.3f, 0.1f, 0.6f, 0.5f));
     ci::gl::drawSolidRect(rect);
+}
+
+void FinalProjectApp::DrawInstructionsMenu() const {
+    ci::gl::drawStringCentered("Instructions", vec2(450, 70), ci::Color("white"), ci::Font("Arial", 45));
+    ci::gl::drawStringCentered("SPACE BAR - Bring Up/Down Instructions Menu", vec2(450, 130), ci::Color("white"), ci::Font("Arial", 15));
+
+    ci::gl::drawStringCentered("Particle:", vec2(450, 200), ci::Color("white"), ci::Font("Arial", 25));
+    ci::gl::drawStringCentered("↑/↓ - Toggle the simulation info panel and edit particle", vec2(450, 240), ci::Color("white"), ci::Font("Arial", 15));
+    ci::gl::drawStringCentered("→/← - Increase/Decrease particle energy state", vec2(450, 300), ci::Color("white"), ci::Font("Arial", 15));
+    ci::gl::drawStringCentered("PERIOD/COMMA - Increase/Decrease particle mass", vec2(450, 360), ci::Color("white"), ci::Font("Arial", 15));
+
+    ci::gl::drawStringCentered("Well:", vec2(450, 420), ci::Color("white"), ci::Font("Arial", 25));
+    ci::gl::drawStringCentered("Being near any of the well edges and dragging it can edit the well for you", vec2(450, 480), ci::Color("white"), ci::Font("Arial", 15));
+
+    ci::gl::drawStringCentered("Expected Values:", vec2(450, 600), ci::Color("white"), ci::Font("Arial", 25));
+    ci::gl::drawStringCentered("a/s - Toggle expected value panel", vec2(450, 660), ci::Color("white"), ci::Font("Arial", 15));
 }
 }
 
