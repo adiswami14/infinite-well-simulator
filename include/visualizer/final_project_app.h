@@ -50,7 +50,15 @@ private:
      */
     void DrawXSpreadRectangle() const;
 
+    /**
+     * Draws the instructions menu for the simulation
+     */
     void DrawInstructionsMenu() const;
+
+    /**
+     * Draws the actual entire simulation
+     */
+    void DrawSimulation();
 
     Well well_; //instance of Well in the simulation
     Particle particle_; //the Particle in the Well
@@ -63,7 +71,7 @@ private:
     SinGraph wavefunction_graph_; //The sin graph representing the spatial wavefunction itself
     CardinalSinGraph momentum_wavefunction_graph_; //The sin graph representing the momentum-space wavefunction
     CardinalSinGraph momentum_prob_dist_graph_; //The sin graph representing the probability distribution of the momentum wavefunction
-    bool instruction_menu_;
+    bool instruction_menu_; //just checks if instruction menu should be drawn at current moment
 };
 
 } //namespace visualizer

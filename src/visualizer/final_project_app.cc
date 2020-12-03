@@ -38,44 +38,7 @@ void FinalProjectApp::draw() {
     if(instruction_menu_) {
         DrawInstructionsMenu();
     } else {
-        ci::Rectf left_rect(vec2(0, kHeight), vec2(well_.GetStartPos(), kWindowSize));
-        ci::Rectf right_rect(vec2(well_.GetEndPos(), kHeight), vec2(kWindowSize, kWindowSize));
-        ci::gl::color(ci::Color("green"));
-        ci::gl::drawStrokedRect(left_rect);
-        ci::gl::drawStrokedRect(right_rect);
-
-        ci::gl::color(ci::Color("yellow"));
-        ci::gl::drawLine(vec2(value_finder_.FindExpectedXValue(well_), 200),
-                         vec2(value_finder_.FindExpectedXValue(well_), kWindowSize));
-
-        DrawXSpreadRectangle();
-        wavefunction_graph_.Draw(well_, particle_);
-        momentum_wavefunction_graph_.Draw(well_, particle_);
-
-        //code below draws the dashed line from one end of well to another
-        ci::gl::color(ci::Color("white"));
-        ci::gl::begin(GL_LINES);
-        float step = 0.01f;
-        for (float x = well_.GetStartPos(); x < well_.GetEndPos(); x += step) {
-            ci::gl::vertex(x, kHeight);
-        }
-        ci::gl::end();
-
-        top_frame_.Draw();
-        simulation_info_frame_.Draw();
-        expected_values_frame_.Draw();
-
-
-        if (simulation_info_frame_.IsOpen()) {
-            DrawSimulationInfo();
-        }
-        if (expected_values_frame_.IsOpen()) {
-            DrawExpectedValues();
-        }
-
-        bottom_frame_.Draw();
-        wavefunction_prob_dist_graph_.Draw(well_, particle_);
-        momentum_prob_dist_graph_.Draw(well_, particle_);
+        DrawSimulation();
     }
 }
 
@@ -192,6 +155,46 @@ void FinalProjectApp::DrawInstructionsMenu() const {
 
     ci::gl::drawStringCentered("Expected Values:", vec2(450, 600), ci::Color("white"), ci::Font("Arial", 25));
     ci::gl::drawStringCentered("a/s - Toggle expected value panel", vec2(450, 660), ci::Color("white"), ci::Font("Arial", 15));
+}
+
+void FinalProjectApp::DrawSimulation() {
+    ci::Rectf left_rect(vec2(0, kHeight), vec2(well_.GetStartPos(), kWindowSize));
+    ci::Rectf right_rect(vec2(well_.GetEndPos(), kHeight), vec2(kWindowSize, kWindowSize));
+    ci::gl::color(ci::Color("green"));
+    ci::gl::drawStrokedRect(left_rect);
+    ci::gl::drawStrokedRect(right_rect);
+    ci::gl::color(ci::Color("yellow"));
+    ci::gl::drawLine(vec2(value_finder_.FindExpectedXValue(well_), 200),
+                     vec2(value_finder_.FindExpectedXValue(well_), kWindowSize));
+
+    DrawXSpreadRectangle();
+    wavefunction_graph_.Draw(well_, particle_);
+    momentum_wavefunction_graph_.Draw(well_, particle_);
+
+    //code below draws the dashed line from one end of well to another
+    ci::gl::color(ci::Color("white"));
+    ci::gl::begin(GL_LINES);
+    float step = 0.01f;
+    for (float x = well_.GetStartPos(); x < well_.GetEndPos(); x += step) {
+        ci::gl::vertex(x, kHeight);
+    }
+    ci::gl::end();
+
+    top_frame_.Draw();
+    simulation_info_frame_.Draw();
+    expected_values_frame_.Draw();
+
+
+    if (simulation_info_frame_.IsOpen()) {
+        DrawSimulationInfo();
+    }
+    if (expected_values_frame_.IsOpen()) {
+        DrawExpectedValues();
+    }
+
+    bottom_frame_.Draw();
+    wavefunction_prob_dist_graph_.Draw(well_, particle_);
+    momentum_prob_dist_graph_.Draw(well_, particle_);
 }
 }
 
