@@ -72,6 +72,7 @@ private:
     CardinalSinGraph momentum_wavefunction_graph_; //The sin graph representing the momentum-space wavefunction
     CardinalSinGraph momentum_prob_dist_graph_; //The sin graph representing the probability distribution of the momentum wavefunction
     bool instruction_menu_; //just checks if instruction menu should be drawn at current moment
+    bool dark_mode_; //checks if the simulation is in dark mode or not
 };
 
 } //namespace visualizer

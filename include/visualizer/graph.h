@@ -35,6 +35,8 @@ public:
      * @param bottom_right_corner Desired value of the origin point of the graph
      */
     void SetBottomRightCorner(const glm::vec2 &bottom_right_corner);
+
+    void SetGraphColor(const ci::Color& graph_color);
 protected:
 
     glm::vec2 bottom_right_corner_; //Origin point of graph

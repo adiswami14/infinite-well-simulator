@@ -29,6 +29,9 @@ public:
      */
     void Draw() const;
 
+    void SetStrokeColor(const ci::Color &stroke_color);
+
+    void SetFillColor(const ci::Color& fill_color);
 private:
     vec2 top_left_corner_; //top left corner of the frame
     vec2 bottom_right_corner_; //bottom right corner of the frame

@@ -51,6 +51,8 @@ public:
      */
     void SetBottomRightCorner(const glm::vec2 &bottom_right_corner);
 
+    void SetGraphColor(const ci::Color& graph_color);
+
     void DrawLabels() const;
 private:
     size_t cardinal_sin_power_; //The power to raise the cardinal sine curve to

@@ -17,6 +17,14 @@ void StaticFrame::Draw() const {
     ci::gl::drawStrokedRect(rect);
 }
 
+void StaticFrame::SetStrokeColor(const ci::Color &stroke_color) {
+    Frame::SetStrokeColor(stroke_color);
+}
+
+void StaticFrame::SetFillColor(const ci::Color& fill_color){
+    Frame::SetFillColor(fill_color);
+}
+
 }
 
 }

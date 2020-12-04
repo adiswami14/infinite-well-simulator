@@ -78,6 +78,14 @@ bool DynamicFrame::IsOpen() const {
     }
     return (active_ && curr_x_ > frame_x_size_);
 }
+
+void DynamicFrame::SetStrokeColor(const ci::Color &stroke_color) {
+    Frame::SetStrokeColor(stroke_color);
+}
+
+void DynamicFrame::SetFillColor(const ci::Color& fill_color){
+    Frame::SetFillColor(fill_color);
+}
 }
 
 }

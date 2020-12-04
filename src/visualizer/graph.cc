@@ -15,6 +15,10 @@ void Graph::SetUnits(size_t units) {
 void Graph::SetBottomRightCorner(const glm::vec2 &bottom_right_corner) {
     bottom_right_corner_ = bottom_right_corner;
 }
+
+void Graph::SetGraphColor(const ci::Color &graph_color) {
+    graph_color_ = graph_color;
+}
 }
 
 

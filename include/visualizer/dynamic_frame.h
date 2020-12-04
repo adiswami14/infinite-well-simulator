@@ -46,6 +46,10 @@ public:
      * @return Whether or not the frame is open
      */
     bool IsOpen() const;
+
+    void SetStrokeColor(const ci::Color &stroke_color);
+
+    void SetFillColor(const ci::Color& fill_color);
 private:
     size_t curr_x_; //current x-position of the frame
     size_t window_size_; //size of the Cinder window that the frame is drawn in

@@ -53,15 +53,19 @@ void CardinalSinGraph::SetBottomRightCorner(const glm::vec2 &bottom_right_corner
     Graph::SetBottomRightCorner(bottom_right_corner);
 }
 
+void CardinalSinGraph::SetGraphColor(const ci::Color &graph_color) {
+    Graph::SetGraphColor(graph_color);
+}
+
 void CardinalSinGraph::DrawLabels() const {
     ci::gl::drawStringCentered("Momentum-Space Wavefunction Probability Distribution",
                                glm::vec2(bottom_right_corner_.x + (x_size_ / 2),
-                                         bottom_right_corner_.y - y_size_ - 10));
+                                         bottom_right_corner_.y - y_size_ - 10), graph_color_);
     ci::gl::drawLine(bottom_right_corner_, glm::vec2(bottom_right_corner_.x, bottom_right_corner_.y - y_size_));
     ci::gl::drawLine(bottom_right_corner_, glm::vec2(bottom_right_corner_.x + x_size_, bottom_right_corner_.y));
-    ci::gl::drawStringCentered("L/2π", glm::vec2(bottom_right_corner_.x - 15, bottom_right_corner_.y - 100));
+    ci::gl::drawStringCentered("L/2π", glm::vec2(bottom_right_corner_.x - 15, bottom_right_corner_.y - 100), graph_color_);
     ci::gl::drawStringCentered("0",
-                               glm::vec2(bottom_right_corner_.x + (units_ / 2), bottom_right_corner_.y + 10));
+                               glm::vec2(bottom_right_corner_.x + (units_ / 2), bottom_right_corner_.y + 10), graph_color_);
 }
 }
 
