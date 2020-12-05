@@ -51,8 +51,15 @@ public:
      */
     void SetBottomRightCorner(const glm::vec2 &bottom_right_corner);
 
+    /**
+     * Sets color of graph itself
+     * @param graph_color The color of graph itself
+     */
     void SetGraphColor(const ci::Color& graph_color);
 
+    /**
+     * Draw Axes and important benchmark points onto the screen
+     */
     void DrawLabels() const;
 private:
     size_t cardinal_sin_power_; //The power to raise the cardinal sine curve to

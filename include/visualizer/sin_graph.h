@@ -45,8 +45,15 @@ public:
      */
     void SetBottomRightCorner(const glm::vec2 &bottom_right_corner);
 
+    /**
+     * Sets color of graph itself
+     * @param graph_color The color of graph itself
+     */
     void SetGraphColor(const ci::Color& graph_color);
 
+    /**
+     * Draw Axes and important benchmark points onto the screen
+     */
     void DrawLabels() const;
 private:
     size_t sin_power_; //the power to raise the sin curve to

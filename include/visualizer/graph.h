@@ -36,6 +36,10 @@ public:
      */
     void SetBottomRightCorner(const glm::vec2 &bottom_right_corner);
 
+    /**
+     * Sets color of graph itself
+     * @param graph_color The color of graph itself
+     */
     void SetGraphColor(const ci::Color& graph_color);
 protected:
 

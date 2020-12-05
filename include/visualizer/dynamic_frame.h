@@ -47,8 +47,16 @@ public:
      */
     bool IsOpen() const;
 
+    /**
+     * Sets color of frame border
+     * @param stroke_color The color of frame border
+     */
     void SetStrokeColor(const ci::Color &stroke_color);
 
+    /**
+     * Sets color of frame itself
+     * @param fill_color The color of frame itself
+     */
     void SetFillColor(const ci::Color& fill_color);
 private:
     size_t curr_x_; //current x-position of the frame
