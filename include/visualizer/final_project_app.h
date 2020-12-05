@@ -60,6 +60,22 @@ private:
      */
     void DrawSimulation();
 
+    /**
+     * Changes the coloring of all frames and graphs to reflect a lighter tone
+     */
+    void SetLightMode();
+
+    /**
+     * Changes the coloring of all frames and graphs to reflect a darker tone
+     */
+    void SetDarkMode();
+
+    /**
+     * Used to set the text color in the information dynamicFrame panels
+     * @return What color the text should be based on lighting mode of the simulation
+     */
+    ci::Color GetTextColor() const;
+
     Well well_; //instance of Well in the simulation
     Particle particle_; //the Particle in the Well
     StaticFrame top_frame_; //The static frame at the top of the screen, used for the graph of spatial wavefunction

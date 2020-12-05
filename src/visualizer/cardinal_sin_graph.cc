@@ -14,6 +14,7 @@ void CardinalSinGraph::Draw(const Well &well, const Particle &particle) const {
     if(draw_labels_) {
         DrawLabels();
 
+        //draw a dashed line through the middle of the graph to represent 0 on the x-axis
         ci::gl::begin(GL_LINES);
         float step = 0.01f;
         for(float y = bottom_right_corner_.y-y_size_; y<bottom_right_corner_.y; y+=step) {
@@ -28,7 +29,7 @@ void CardinalSinGraph::Draw(const Well &well, const Particle &particle) const {
     for (double i=0;i<well.GetLength();i+=unit) {
         x1 = (float)i;
         x2 = ((float)i + unit);
-        float term = k_term_*(i-well.GetLength()/2);
+        float term = k_term_*(i-well.GetLength()/2); //all cardinal sin graphs have form (sin k)/k, k being the term
         y1 = -100*pow(sin(term)/term, cardinal_sin_power_);
         y2 = -100*pow(sin(term)/term, cardinal_sin_power_);
         x1/=unit;

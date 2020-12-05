@@ -9,17 +9,18 @@ Graph(bottom_right_corner, x_size, y_size, graph_color, units, draw_labels), sin
 
 void SinGraph::Draw(const Well &well, const Particle& particle) const {
     ci::gl::color(ci::Color(graph_color_));
-    if(draw_labels_) {
+    if(draw_labels_) {  //draw axes and labels them as well
         DrawLabels();
     }
-    float x1, x2, y1, y2;
-    float unit = well.GetLength()/units_;
-    ci::gl::begin(GL_LINE_STRIP);
+    float x1, x2, y1, y2; //x2 and y2 not necessary, but makes graph look smoother and fits units better
+    float unit = well.GetLength()/units_; //divides the graph into a specified amount of units
+    ci::gl::begin(GL_LINE_STRIP); //batch drawing using begin(), vertex(), and end() methods
     for (double i=0;i<well.GetLength();i+=unit) {
         x1 = (float)i;
-        x2 = ((float)i + unit);
+        x2 = ((float)i + unit); //get the next value of x in order to save as a vertex
         y1 = -100*pow(sin((particle.energy_state_*x1/(well.GetLength())) * M_PI),sin_power_);
         y2 = -100*pow(sin((particle.energy_state_*x2/(well.GetLength())) * M_PI),sin_power_);
+        //scale both x-values down to represent a single increment of 1
         x1/=unit;
         x2/=unit;
         ci::gl::vertex(x1+bottom_right_corner_.x, y1 +bottom_right_corner_.y);
