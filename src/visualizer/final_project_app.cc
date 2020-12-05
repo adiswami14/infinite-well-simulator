@@ -194,6 +194,7 @@ void FinalProjectApp::DrawXSpreadRectangle() const {
 void FinalProjectApp::DrawInstructionsMenu() const {
     ci::gl::drawStringCentered("Instructions", vec2(450, 70), ci::Color("white"), ci::Font("Arial", 45));
     ci::gl::drawStringCentered("SPACE BAR - Bring Up/Down Instructions Menu", vec2(450, 130), ci::Color("white"), ci::Font("Arial", 15));
+    ci::gl::drawStringCentered("d - Switch between dark and light mode", vec2(450, 160), ci::Color("white"), ci::Font("Arial", 15));
 
     ci::gl::drawStringCentered("Particle:", vec2(450, 200), ci::Color("white"), ci::Font("Arial", 25));
     ci::gl::drawStringCentered("↑/↓ - Toggle the simulation info panel and edit particle", vec2(450, 240), ci::Color("white"), ci::Font("Arial", 15));
