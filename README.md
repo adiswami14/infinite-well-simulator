@@ -3,7 +3,6 @@
 **Author**: Adithya Swaminathan - [`adithya9@illinois.edu`](mailto:example@illinois.edu)
 
 [Imgur](https://imgur.com/MvYkqVt)
-[img](https://i.imgur.com/MvYkqVt.mp4)[/img]
 
 ### Overview
 The Infinite Well Simulator is my version of the famous "particle in a box" simulation, the idea of which can be seen [here](https://chem.libretexts.org/Bookshelves/Physical_and_Theoretical_Chemistry_Textbook_Maps/Supplemental_Modules_(Physical_and_Theoretical_Chemistry)/Quantum_Mechanics/05.5%3A_Particle_in_Boxes/Particle_in_a_1-Dimensional_box). It allows the user full control over all the properties of the simulation, and then see the results of their actions on a quantum scale.
