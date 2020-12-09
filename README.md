@@ -3,6 +3,7 @@
 **Author**: Adithya Swaminathan - [`adithya9@illinois.edu`](mailto:example@illinois.edu)
 
 ### Overview
+![](https://imgur.com/a/SZIbUcs)
 The Infinite Well Simulator is my version of the famous "particle in a box" simulation, the idea of which can be seen [here]https://chem.libretexts.org/Bookshelves/Physical_and_Theoretical_Chemistry_Textbook_Maps/Supplemental_Modules_(Physical_and_Theoretical_Chemistry)/Quantum_Mechanics/05.5%3A_Particle_in_Boxes/Particle_in_a_1-Dimensional_box. It allows the user full control over all the properties of the simulation, and then see the results of their actions on a quantum scale.
 
 ### Dependencies
@@ -11,7 +12,7 @@ Running Infinite Well Simulator will require:
 - CMake
 - Cinder v0.9.2 and above
 
-### Quickstart
+### Get It Running
 - If you do not have Cinder, download it [here](https://libcinder.org/download)
 - Clone the repository using
 ```git clone https://github.com/uiuc-fa20-cs126/final-project-adiswami14.git```
