@@ -29,6 +29,17 @@ public:
      */
     void Draw() const;
 
+    /**
+     * Sets color of frame border
+     * @param stroke_color The color of frame border
+     */
+    void SetStrokeColor(const ci::Color &stroke_color);
+
+    /**
+     * Sets color of frame itself
+     * @param fill_color The color of frame itself
+     */
+    void SetFillColor(const ci::Color& fill_color);
 private:
     vec2 top_left_corner_; //top left corner of the frame
     vec2 bottom_right_corner_; //bottom right corner of the frame
